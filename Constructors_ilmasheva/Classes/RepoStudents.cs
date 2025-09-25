@@ -12,7 +12,7 @@ namespace Constructors_ilmasheva.Classes
         /// Статический метод, который возвращает коллекцию студентов.
         /// </summary>
         /// <returns>Список студентов</returns>
-        public static List<Student> AllStudent()
+        public static List<Student> AllStudents()
         {
             // Создаём новую коллекцию
             List<Student> allStudent = new List<Student>();

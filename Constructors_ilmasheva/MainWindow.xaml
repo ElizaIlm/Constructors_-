@@ -12,7 +12,6 @@
     <Grid>
         <ScrollViewer ScrollChanged="ScrollViewer_ScrollChanged">
             <StackPanel Margin="10" x:Name="parent">
-               
             </StackPanel>
         </ScrollViewer>
     </Grid>
