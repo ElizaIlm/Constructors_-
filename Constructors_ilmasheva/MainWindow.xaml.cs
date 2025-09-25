@@ -21,48 +21,43 @@ namespace Constructors_ilmasheva
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<Classes.Student> AllStudents = RepoStudents.AllStudents();
-
-        /// <summary> Количество записей для разовой прогрузки </summary>
         public int Count = 10;
-        /// <summary> Шаг на котором находится пользователь </summary>
         public int Step = 0;
+        public List<Classes.Student> AllStudent;
 
         public MainWindow()
         {
             InitializeComponent();
-            // Создание студентов
+
+            // сортируем ТОЛЬКО здесь
+            AllStudent = RepoStudents.AllStudents()
+                .OrderBy(s => s.Lastname)
+                .ThenBy(s => s.Firstname)
+                .ThenBy(s => s.Surname)
+                .ToList();
+
             CreateStudent(Step, Count);
         }
 
-        /// <summary> Метод создания студентов </summary>
         public void CreateStudent(int Step, int Count)
         {
-            // Перебираем студентов с шага на котором остановились, до шага + кол-во записей
             for (int iStudent = Step; iStudent < Step + Count; iStudent++)
-                // Если индекс не вышел за рамки
-                if (AllStudents.Count > iStudent)
-                    // Добавляем в интерфейс пользовательский элемент со студентом
-                    parent.Children.Add(new Elements.Student(AllStudents[iStudent]));
-            // Увеличиваем шаг на кол-во записей
+                if (AllStudent.Count > iStudent)
+                    parent.Children.Add(new Elements.Student(AllStudent[iStudent]));
+
             this.Step += Count;
         }
 
         private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            // Получаем элемент прокрутки
             ScrollViewer scroll = sender as ScrollViewer;
-            // Получаем высоту списка с элементами
             double ParentHeight = parent.ActualHeight;
-            // Получаем высоту окна - 20 пикселей отступ
             double WindowHeight = scroll.ActualHeight - 20;
-            // Получаем дельта высоту на которую может сместиться пользователь
             double DeltaHeight = ParentHeight - WindowHeight;
-            // Если высота на которую может сместиться пользователь - высота на которую спустился < 140 (2 плашки)
+
             if (DeltaHeight - scroll.VerticalOffset < 140)
             {
-                // Создаём новые
-                CreateStudent(Step, Count);
+                CreateStudent(Step, this.Count); // подгружаем следующую порцию
             }
         }
     }
