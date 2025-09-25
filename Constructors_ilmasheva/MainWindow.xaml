@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Constructors_ilmasheva"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Студенты КГАПОУ Авиатехникума" 
+        Height="450" Width="800" 
+        MinHeight="450" MinWidth="800" 
+        FontFamily="Arial Narrow">
     <Grid>
-        
+        <ScrollViewer ScrollChanged="ScrollViewer_ScrollChanged">
+            <StackPanel Margin="10" x:Name="parent">
+               
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
